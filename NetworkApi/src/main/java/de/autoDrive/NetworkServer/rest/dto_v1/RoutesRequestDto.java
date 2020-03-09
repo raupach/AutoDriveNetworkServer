@@ -10,6 +10,8 @@ public class RoutesRequestDto {
     private Integer revision;
     private String date;
     private List<WaypointDto> waypoints = new ArrayList<>();
+    private List<MarkerDto> markers = new ArrayList<>();
+    private List<GroupDto> groups = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -49,5 +51,21 @@ public class RoutesRequestDto {
 
     public void setWaypoints(List<WaypointDto> waypoints) {
         this.waypoints = waypoints;
+    }
+
+    public List<MarkerDto> getMarkers() {
+        return markers;
+    }
+
+    public void setMarkers(List<MarkerDto> markers) {
+        this.markers = markers;
+    }
+
+    public List<GroupDto> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<GroupDto> groups) {
+        this.groups = groups;
     }
 }

@@ -13,6 +13,12 @@ public class RouteMapper {
     private WaypointMapper waypointMapper;
 
     @Autowired
+    private GroupMapper groupMapper;
+
+    @Autowired
+    private MarkerMapper markerMapper;
+
+    @Autowired
     private RouteRepository routeRepository;
 
     public Route toEntity(RoutesRequestDto dto) {
@@ -22,6 +28,8 @@ public class RouteMapper {
         route.setName(dto.getName());
         route.setRevision(dto.getRevision());
         route.setWaypoints(waypointMapper.toEntity(route, dto.getWaypoints()));
+        route.setGroups(groupMapper.toEntity(route, dto.getGroups()));
+        route.setMarkers(markerMapper.toEntity(route, dto.getMarkers()));
         routeRepository.save(route);
         return route;
     }

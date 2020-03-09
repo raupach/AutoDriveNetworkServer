@@ -24,6 +24,9 @@ public class Waypoint extends BaseEntity {
     @ManyToMany(mappedBy = "outgoing", fetch = FetchType.LAZY)
     private Set<Waypoint> incoming= new HashSet<>();
 
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="waypoint")
+    private Marker marker;
+
     private Double x;
     private Double y;
     private Double z;
@@ -75,5 +78,13 @@ public class Waypoint extends BaseEntity {
 
     public void setIncoming(Set<Waypoint> incoming) {
         this.incoming = incoming;
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
     }
 }

@@ -6,11 +6,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "route")
-public class Route extends BaseEntity{
+public class Route extends BaseEntity {
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
     @OrderColumn(name="INDEX_COL")
     private List<Waypoint> waypoints = new ArrayList<>();
+
+    @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
+    private List<Marker> markers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
+    private List<Group> groups = new ArrayList<>();
 
     private String name;
     private String map;
@@ -55,5 +61,21 @@ public class Route extends BaseEntity{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<Marker> getMarkers() {
+        return markers;
+    }
+
+    public void setMarkers(List<Marker> markers) {
+        this.markers = markers;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }
