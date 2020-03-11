@@ -1,7 +1,7 @@
 CREATE TABLE waypoint (
 
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    INDEX_COL int not null,
+    INDEX_COL int,
     route_id int not null,
     x float not null,
     y float not null,
@@ -30,7 +30,7 @@ CREATE TABLE marker (
     group_id int
 );
 
-CREATE TABLE "group" (
+CREATE TABLE ad_group (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     route_ID int NOT NULL,
     name varchar(255)

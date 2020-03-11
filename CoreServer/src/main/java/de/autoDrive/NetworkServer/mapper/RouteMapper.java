@@ -27,10 +27,10 @@ public class RouteMapper {
         route.setMap(dto.getMap());
         route.setName(dto.getName());
         route.setRevision(dto.getRevision());
+        routeRepository.save(route);
         route.setWaypoints(waypointMapper.toEntity(route, dto.getWaypoints()));
         route.setGroups(groupMapper.toEntity(route, dto.getGroups()));
         route.setMarkers(markerMapper.toEntity(route, dto.getMarkers()));
-        routeRepository.save(route);
         return route;
     }
 }

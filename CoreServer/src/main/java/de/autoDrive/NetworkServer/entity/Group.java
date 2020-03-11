@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
+@Table(name = "ad_group")
 public class Group extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

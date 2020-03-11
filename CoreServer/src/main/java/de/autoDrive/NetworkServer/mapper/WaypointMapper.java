@@ -34,14 +34,16 @@ public class WaypointMapper {
     }
 
     private void reorderWaypoints(List<WaypointDto> waypointDtos, List<Waypoint> waypoints) {
-        for (int i = 0; i <= waypointDtos.size(); i++) {
+        for (int i = 0; i < waypointDtos.size(); i++) {
             WaypointDto dto = waypointDtos.get(i);
             Waypoint currentWayPoint = waypoints.get(i);
 
             for (Integer index : dto.getOut()) {
-                Waypoint outgoing = waypoints.get(index);
-                currentWayPoint.getOutgoing().add(outgoing);
-                outgoing.getIncoming().add(currentWayPoint);
+                if (index > 0) {
+                    Waypoint outgoing = waypoints.get(index-1); // AutoDrive starts indexing at 1; we start at 0
+                    currentWayPoint.getOutgoing().add(outgoing);
+                    outgoing.getIncoming().add(currentWayPoint);
+                }
             }
         }
     }
