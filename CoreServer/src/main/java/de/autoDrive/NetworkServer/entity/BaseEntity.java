@@ -2,29 +2,29 @@ package de.autoDrive.NetworkServer.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity 
 {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    public Long getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
+
+    //    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(generator="uuid")
+    @GenericGenerator(name="uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+
 
     @Override
     public int hashCode()

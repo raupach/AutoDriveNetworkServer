@@ -2,6 +2,7 @@ package de.autoDrive.NetworkServer.service;
 
 import de.autoDrive.NetworkServer.entity.Route;
 import de.autoDrive.NetworkServer.mapper.RouteMapper;
+import de.autoDrive.NetworkServer.repository.RouteRepository;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesRequestDto;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesResponseDtos;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesStoreResponseDto;
@@ -16,8 +17,13 @@ public class RoutesService {
     @Autowired
     private RouteMapper routeMapper;
 
+    @Autowired
+    private RouteRepository routeRepository;
+
     public RoutesResponseDtos getRoutes() {
-        return null;
+        Iterable<Route> routes = routeRepository.findAll();
+        RoutesResponseDtos routesResponseDtos = routeMapper.toRoutesResponseDtos( routes);
+        return routesResponseDtos;
     }
 
     public RoutesStoreResponseDto saveNewRoute(RoutesRequestDto dto) {

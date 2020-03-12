@@ -2,13 +2,13 @@ package de.autoDrive.NetworkServer.rest.dto_v1;
 
 public class RoutesStoreResponseDto {
 
-    private Long routeId;
+    private String routeId;
 
-    public Long getRouteId() {
+    public String getRouteId() {
         return routeId;
     }
 
-    public void setRouteId(Long routeId) {
+    public void setRouteId(String routeId) {
         this.routeId = routeId;
     }
 }

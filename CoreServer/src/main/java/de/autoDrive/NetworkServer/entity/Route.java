@@ -2,6 +2,7 @@ package de.autoDrive.NetworkServer.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.List;
 public class Route extends BaseEntity {
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
-    @OrderColumn(name="INDEX_COL")
+//    @OrderColumn(name="INDEX_COL")
     private List<Waypoint> waypoints = new ArrayList<>();
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
@@ -21,7 +22,7 @@ public class Route extends BaseEntity {
     private String name;
     private String map;
     private Integer revision;
-    private String date;
+    private Date date;
 
     public List<Waypoint> getWaypoints() {
         return waypoints;
@@ -55,14 +56,6 @@ public class Route extends BaseEntity {
         this.revision = revision;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public List<Marker> getMarkers() {
         return markers;
     }
@@ -77,5 +70,13 @@ public class Route extends BaseEntity {
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
