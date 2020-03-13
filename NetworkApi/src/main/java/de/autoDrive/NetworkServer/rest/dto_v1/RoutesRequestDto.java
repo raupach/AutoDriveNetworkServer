@@ -1,7 +1,6 @@
 package de.autoDrive.NetworkServer.rest.dto_v1;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RoutesRequestDto {
@@ -9,7 +8,9 @@ public class RoutesRequestDto {
     private String name;
     private String map;
     private Integer revision;
-    private Date date;
+    private String date;
+    private String description;
+    private String username;
     private List<WaypointDto> waypoints = new ArrayList<>();
     private List<MarkerDto> markers = new ArrayList<>();
     private List<GroupDto> groups = new ArrayList<>();
@@ -62,11 +63,28 @@ public class RoutesRequestDto {
         this.groups = groups;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

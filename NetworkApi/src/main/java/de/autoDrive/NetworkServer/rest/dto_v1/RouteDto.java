@@ -1,12 +1,12 @@
 package de.autoDrive.NetworkServer.rest.dto_v1;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 public class RouteDto {
     private String name;
     private String map;
     private Integer revision;
-    private Date date;
+    private String date;
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class RouteDto {
         this.revision = revision;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

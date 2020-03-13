@@ -1,6 +1,7 @@
 package de.autoDrive.NetworkServer.entity;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Route extends BaseEntity {
     private String name;
     private String map;
     private Integer revision;
-    private Date date;
+    private ZonedDateTime date;
 
     public List<Waypoint> getWaypoints() {
         return waypoints;
@@ -72,11 +73,11 @@ public class Route extends BaseEntity {
         this.groups = groups;
     }
 
-    public Date getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 }

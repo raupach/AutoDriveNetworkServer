@@ -27,9 +27,13 @@ public class RouteMapper {
     @Autowired
     private RouteRepository routeRepository;
 
+    @Autowired
+    private ZoneDateTimeMapper zoneDateTimeMapper;
+
+
     public Route toEntity(RoutesRequestDto dto) {
         Route route = new Route();
-        route.setDate(dto.getDate());
+        route.setDate(zoneDateTimeMapper.toZoneDateTime(dto.getDate()));
         route.setMap(dto.getMap());
         route.setName(dto.getName());
         route.setRevision(dto.getRevision());
@@ -50,7 +54,7 @@ public class RouteMapper {
 
     private RouteDto toRouteDto(Route route) {
         RouteDto dto = new RouteDto();
-        dto.setDate(route.getDate());
+        dto.setDate(zoneDateTimeMapper.toDateStr(route.getDate()));
         dto.setMap(route.getMap());
         dto.setName(route.getName());
         dto.setRevision(route.getRevision());
