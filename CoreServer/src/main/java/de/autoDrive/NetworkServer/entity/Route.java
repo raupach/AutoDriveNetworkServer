@@ -1,9 +1,11 @@
 package de.autoDrive.NetworkServer.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,7 +13,6 @@ import java.util.List;
 public class Route extends BaseEntity {
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
-//    @OrderColumn(name="INDEX_COL")
     private List<Waypoint> waypoints = new ArrayList<>();
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
@@ -24,6 +25,10 @@ public class Route extends BaseEntity {
     private String map;
     private Integer revision;
     private ZonedDateTime date;
+    private String description;
+    private String username;
+    private ZonedDateTime uploaded;
+    private ZonedDateTime updated;
 
     public List<Waypoint> getWaypoints() {
         return waypoints;
@@ -79,5 +84,37 @@ public class Route extends BaseEntity {
 
     public void setDate(ZonedDateTime date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public ZonedDateTime getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(ZonedDateTime uploaded) {
+        this.uploaded = uploaded;
+    }
+
+    public ZonedDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(ZonedDateTime updated) {
+        this.updated = updated;
     }
 }
