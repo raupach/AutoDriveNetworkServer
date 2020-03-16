@@ -47,4 +47,17 @@ public class WaypointMapper {
             }
         }
     }
+
+    public List<WaypointDto> toWaypointDto(List<Waypoint> waypoints) {
+        return waypoints.stream().map(w -> toWaypointDto(waypoints, w)).collect(Collectors.toList());
+    }
+
+    private WaypointDto toWaypointDto(List<Waypoint> waypoints, Waypoint waypoint) {
+        WaypointDto dto = new WaypointDto();
+        dto.setY(waypoint.getY());
+        dto.setX(waypoint.getX());
+        dto.setZ(waypoint.getZ());
+        dto.setOut(waypoint.getOutgoing().stream().map(w -> waypoints.indexOf(w)+1).collect(Collectors.toList()));
+        return dto;
+    }
 }

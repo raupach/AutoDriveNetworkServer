@@ -3,6 +3,7 @@ package de.autoDrive.NetworkServer.rest;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesRequestDto;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesResponseDtos;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesStoreResponseDto;
+import de.autoDrive.NetworkServer.rest.dto_v1.WaypointsResponseDto;
 import de.autoDrive.NetworkServer.service.RoutesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,20 @@ public class RoutesRestController {
         responseHeaders.set(NetworkServiceRestType.X_AUTODRIVE_MEDIA_TYPE , NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
         LOG.info("<<<<--- getRoutes-Rest ende. {}",  LOG.isDebugEnabled() ? response:"");
         return new ResponseEntity<RoutesResponseDtos>(response, responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value ="{routeId}"+RoutesRestPath.WAYPOINTS,
+            method= RequestMethod.GET,
+            produces = {NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1})
+    public ResponseEntity<WaypointsResponseDto> getWaypoints (@PathVariable String routeId)
+    {
+        LOG.info("--->>>> Incoming getWaypoints-Rest.");
+        WaypointsResponseDto response = routesService.getWaypoints(routeId);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        responseHeaders.set(NetworkServiceRestType.X_AUTODRIVE_MEDIA_TYPE , NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
+        LOG.info("<<<<--- getWaypoints-Rest ende. {}",  LOG.isDebugEnabled() ? response:"");
+        return new ResponseEntity<WaypointsResponseDto>(response, responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(value ="",

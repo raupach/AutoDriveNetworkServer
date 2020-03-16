@@ -2,10 +2,12 @@ package de.autoDrive.NetworkServer.service;
 
 import de.autoDrive.NetworkServer.entity.Route;
 import de.autoDrive.NetworkServer.mapper.RouteMapper;
+import de.autoDrive.NetworkServer.mapper.WaypointMapper;
 import de.autoDrive.NetworkServer.repository.RouteRepository;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesRequestDto;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesResponseDtos;
 import de.autoDrive.NetworkServer.rest.dto_v1.RoutesStoreResponseDto;
+import de.autoDrive.NetworkServer.rest.dto_v1.WaypointsResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +20,14 @@ public class RoutesService {
     private RouteMapper routeMapper;
 
     @Autowired
+    private WaypointMapper waypointMapper;
+
+    @Autowired
     private RouteRepository routeRepository;
 
     public RoutesResponseDtos getRoutes() {
         Iterable<Route> routes = routeRepository.findAll();
-        RoutesResponseDtos routesResponseDtos = routeMapper.toRoutesResponseDtos( routes);
-        return routesResponseDtos;
+        return routeMapper.toRoutesResponseDtos(routes);
     }
 
     public RoutesStoreResponseDto saveNewRoute(RoutesRequestDto dto) {
@@ -31,5 +35,11 @@ public class RoutesService {
         Route route = routeMapper.toEntity(dto);
         routesStoreResponseDto.setRouteId(route.getId());
         return routesStoreResponseDto;
+    }
+
+    public WaypointsResponseDto getWaypoints(String routeId) {
+        WaypointsResponseDto dto = new WaypointsResponseDto();
+        routeRepository.findDistinctById(routeId).ifPresent(route -> dto.setWaypoints(waypointMapper.toWaypointDto(route.getWaypoints())));
+        return dto;
     }
 }

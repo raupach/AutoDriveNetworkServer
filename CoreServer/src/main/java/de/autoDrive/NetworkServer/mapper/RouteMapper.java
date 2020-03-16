@@ -66,6 +66,7 @@ public class RouteMapper {
         dto.setMap(route.getMap());
         dto.setName(route.getName());
         dto.setRevision(route.getRevision());
+        dto.setId(route.getId());
         return dto;
     }
 }
