@@ -24,9 +24,12 @@ public class Waypoint extends BaseEntity {
     @ManyToMany(mappedBy = "outgoing", fetch = FetchType.LAZY)
     private Set<Waypoint> incoming= new HashSet<>();
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="marker_id")
-    private Marker marker;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_ID")
+    private Group group;
+
+    @Column(name = "marker_name")
+    private String markerName;
 
     private Double x;
     private Double y;
@@ -81,11 +84,19 @@ public class Waypoint extends BaseEntity {
         this.incoming = incoming;
     }
 
-    public Marker getMarker() {
-        return marker;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setMarker(Marker marker) {
-        this.marker = marker;
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public String getMarkerName() {
+        return markerName;
+    }
+
+    public void setMarkerName(String markerName) {
+        this.markerName = markerName;
     }
 }

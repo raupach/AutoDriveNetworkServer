@@ -23,9 +23,6 @@ public class RouteMapper {
     private GroupMapper groupMapper;
 
     @Autowired
-    private MarkerMapper markerMapper;
-
-    @Autowired
     private RouteRepository routeRepository;
 
     @Autowired
@@ -41,9 +38,8 @@ public class RouteMapper {
         route.setDescription(dto.getDescription());
         route.setRevision(dto.getRevision());
         routeRepository.save(route);
-        route.setWaypoints(waypointMapper.toEntity(route, dto.getWaypoints()));
         route.setGroups(groupMapper.toEntity(route, dto.getGroups()));
-        route.setMarkers(markerMapper.toEntity(route, dto.getMarkers()));
+        route.setWaypoints(waypointMapper.toEntity(route, dto.getWaypoints(), dto.getMarkers()));
         route.setUpdated(ZonedDateTime.now());
         return route;
     }

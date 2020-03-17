@@ -1,9 +1,6 @@
 package de.autoDrive.NetworkServer.rest;
 
-import de.autoDrive.NetworkServer.rest.dto_v1.RoutesRequestDto;
-import de.autoDrive.NetworkServer.rest.dto_v1.RoutesResponseDtos;
-import de.autoDrive.NetworkServer.rest.dto_v1.RoutesStoreResponseDto;
-import de.autoDrive.NetworkServer.rest.dto_v1.WaypointsResponseDto;
+import de.autoDrive.NetworkServer.rest.dto_v1.*;
 import de.autoDrive.NetworkServer.service.RoutesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

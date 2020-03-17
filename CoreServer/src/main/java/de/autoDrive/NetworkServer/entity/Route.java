@@ -16,9 +16,6 @@ public class Route extends BaseEntity {
     private List<Waypoint> waypoints = new ArrayList<>();
 
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
-    private List<Marker> markers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
     private List<Group> groups = new ArrayList<>();
 
     private String name;
@@ -60,14 +57,6 @@ public class Route extends BaseEntity {
 
     public void setRevision(Integer revision) {
         this.revision = revision;
-    }
-
-    public List<Marker> getMarkers() {
-        return markers;
-    }
-
-    public void setMarkers(List<Marker> markers) {
-        this.markers = markers;
     }
 
     public List<Group> getGroups() {

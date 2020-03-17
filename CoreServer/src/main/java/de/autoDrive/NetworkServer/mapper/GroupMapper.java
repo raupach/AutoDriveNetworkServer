@@ -27,4 +27,14 @@ public class GroupMapper {
         groupRepository.save(group);
         return group;
     }
+
+    public List<GroupDto> toGroupDto(List<Group> groups) {
+        return groups.stream().map(this::toGroupDto).collect(Collectors.toList());
+    }
+
+    private GroupDto toGroupDto(Group group) {
+        GroupDto dto = new GroupDto();
+        dto.setName(group.getName());
+        return dto;
+    }
 }

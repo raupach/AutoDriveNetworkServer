@@ -13,7 +13,7 @@ public class Group extends BaseEntity {
     private Route route;
 
     @OneToMany(mappedBy = "group", fetch= FetchType.LAZY)
-    private List<Marker> markers = new ArrayList<>();
+    private List<Waypoint> waypoints = new ArrayList<>();
 
     private String name;
 
@@ -25,13 +25,6 @@ public class Group extends BaseEntity {
         this.route = route;
     }
 
-    public List<Marker> getMarkers() {
-        return markers;
-    }
-
-    public void setMarkers(List<Marker> markers) {
-        this.markers = markers;
-    }
 
     public String getName() {
         return name;
@@ -39,5 +32,13 @@ public class Group extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Waypoint> getWaypoints() {
+        return waypoints;
+    }
+
+    public void setWaypoints(List<Waypoint> waypoints) {
+        this.waypoints = waypoints;
     }
 }
