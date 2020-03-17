@@ -2,6 +2,7 @@ CREATE TABLE waypoint (
 
     id varchar(99) NOT NULL PRIMARY KEY,
     route_id varchar(99) not null,
+    marker_id varchar(99),
     x float not null,
     y float not null,
     z float not null
@@ -40,15 +41,17 @@ CREATE TABLE ad_group (
 CREATE TABLE marker (
     id varchar(99) NOT NULL PRIMARY KEY,
     route_ID varchar(99) NOT NULL,
-    waypoint_id varchar(99) not null,
+
     name varchar(255),
     group_id varchar(99),
 
-    FOREIGN KEY (waypoint_id) REFERENCES waypoint(id),
+
     FOREIGN KEY (route_ID) REFERENCES route(id),
     FOREIGN KEY (group_id) REFERENCES ad_group(id)
 );
 
+
+alter table waypoint add FOREIGN KEY (marker_id) REFERENCES marker(id);
 
 
 --

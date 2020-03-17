@@ -10,8 +10,7 @@ public class Marker extends BaseEntity {
     @JoinColumn(name = "route_ID")
     private Route route;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="waypoint_id")
+    @OneToOne(fetch=FetchType.LAZY, mappedBy = "marker")
     private Waypoint waypoint;
 
     @ManyToOne(fetch = FetchType.LAZY)

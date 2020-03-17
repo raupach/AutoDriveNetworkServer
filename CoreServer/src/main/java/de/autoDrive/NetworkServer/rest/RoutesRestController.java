@@ -31,12 +31,13 @@ public class RoutesRestController {
             produces = {NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1})
     public ResponseEntity<RoutesResponseDtos> getRoutes ()
     {
+        long start = System.currentTimeMillis();
         LOG.info("--->>>> Incoming getRoutes-Rest.");
         RoutesResponseDtos response = routesService.getRoutes();
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         responseHeaders.set(NetworkServiceRestType.X_AUTODRIVE_MEDIA_TYPE , NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
-        LOG.info("<<<<--- getRoutes-Rest ende. {}",  LOG.isDebugEnabled() ? response:"");
+        LOG.info("<<<<--- getRoutes-Rest ende. {}ms, {}", System.currentTimeMillis()-start, LOG.isDebugEnabled() ? response:"");
         return new ResponseEntity<RoutesResponseDtos>(response, responseHeaders, HttpStatus.OK);
     }
 
@@ -45,12 +46,13 @@ public class RoutesRestController {
             produces = {NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1})
     public ResponseEntity<WaypointsResponseDto> getWaypoints (@PathVariable String routeId)
     {
+        long start = System.currentTimeMillis();
         LOG.info("--->>>> Incoming getWaypoints-Rest.");
         WaypointsResponseDto response = routesService.getWaypoints(routeId);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         responseHeaders.set(NetworkServiceRestType.X_AUTODRIVE_MEDIA_TYPE , NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
-        LOG.info("<<<<--- getWaypoints-Rest ende. {}",  LOG.isDebugEnabled() ? response:"");
+        LOG.info("<<<<--- getWaypoints-Rest ende. {}ms, {}", System.currentTimeMillis()-start,  LOG.isDebugEnabled() ? response:"");
         return new ResponseEntity<WaypointsResponseDto>(response, responseHeaders, HttpStatus.OK);
     }
 
@@ -60,12 +62,13 @@ public class RoutesRestController {
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RoutesStoreResponseDto> store(@RequestBody RoutesRequestDto dto) throws Exception
     {
+        long start = System.currentTimeMillis();
         LOG.info("--->>>> Incoming store-Rest. {}", LOG.isDebugEnabled() ? dto : "");
         RoutesStoreResponseDto sendResult = routesService.saveNewRoute(dto);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         responseHeaders.set(X_AUTODRIVE_MEDIA_TYPE, NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
-        LOG.info("<<<<--- store-Rest ende. {}", sendResult);
+        LOG.info("<<<<--- store-Rest ende. {}ms, {}", System.currentTimeMillis()-start, sendResult);
         return new ResponseEntity<RoutesStoreResponseDto>(sendResult, responseHeaders, HttpStatus.CREATED);
     }
 
