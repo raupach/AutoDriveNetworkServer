@@ -40,7 +40,7 @@ public class RoutesService {
 
     public WaypointsResponseDto getWaypoints(String routeId) {
         WaypointsResponseDto dto = new WaypointsResponseDto();
-        routeRepository.findDistinctById(routeId).ifPresent(route -> {
+        routeRepository.findById(routeId).ifPresent(route -> {
             dto.setWaypoints(waypointMapper.toWaypointDto(route.getWaypoints()));
             dto.setGroups(groupMapper.toGroupDto(route.getGroups()));
             dto.setMarkers(waypointMapper.toMarkerDto(route.getWaypoints()));

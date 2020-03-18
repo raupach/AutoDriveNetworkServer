@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface RouteRepository extends CrudRepository<Route, String> {
 
-    @EntityGraph(attributePaths = {"waypoints", "waypoints.outgoing"}, type = EntityGraph.EntityGraphType.FETCH)
-    Optional<Route> findDistinctById(String s);
+    @EntityGraph(attributePaths = {"waypoints"}, type = EntityGraph.EntityGraphType.FETCH)
+    Optional<Route> findById(String s);
 }

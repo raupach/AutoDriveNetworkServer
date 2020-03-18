@@ -1,19 +1,23 @@
 package de.autoDrive.NetworkServer.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@Cache(region = "waypointCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "waypoint")
 public class Waypoint extends BaseEntity {
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_ID")
     private Route route;
 
+    @Cache(region = "waypointOutgoingCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="waypoint_to_waypoint",
@@ -21,9 +25,11 @@ public class Waypoint extends BaseEntity {
             inverseJoinColumns=@JoinColumn(name="incoming_ID", referencedColumnName="ID"))
     private Set<Waypoint> outgoing = new HashSet<>();
 
+    @Cache(region = "waypointIncomingCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(mappedBy = "outgoing", fetch = FetchType.LAZY)
     private Set<Waypoint> incoming= new HashSet<>();
 
+    @Cache(region = "waypointGroupCache",usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_ID")
     private Group group;

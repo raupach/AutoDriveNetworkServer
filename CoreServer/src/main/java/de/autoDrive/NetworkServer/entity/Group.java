@@ -1,10 +1,14 @@
 package de.autoDrive.NetworkServer.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cache(region = "groupCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "ad_group")
 public class Group extends BaseEntity {
 
@@ -12,6 +16,7 @@ public class Group extends BaseEntity {
     @JoinColumn(name = "route_ID")
     private Route route;
 
+    @Cache(region = "groupWaypointsCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "group", fetch= FetchType.LAZY)
     private List<Waypoint> waypoints = new ArrayList<>();
 
