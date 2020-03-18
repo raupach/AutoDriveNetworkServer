@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WaypointsResponseDto {
+
+    private RouteDto route;
     private List<WaypointDto> waypoints = new ArrayList<>();
     private List<MarkerDto> markers = new ArrayList<>();
     private List<GroupDto> groups = new ArrayList<>();
@@ -30,5 +32,13 @@ public class WaypointsResponseDto {
 
     public void setGroups(List<GroupDto> groups) {
         this.groups = groups;
+    }
+
+    public RouteDto getRoute() {
+        return route;
+    }
+
+    public void setRoute(RouteDto route) {
+        this.route = route;
     }
 }

@@ -44,6 +44,7 @@ public class RoutesService {
             dto.setWaypoints(waypointMapper.toWaypointDto(route.getWaypoints()));
             dto.setGroups(groupMapper.toGroupDto(route.getGroups()));
             dto.setMarkers(waypointMapper.toMarkerDto(route.getWaypoints()));
+            dto.setRoute(routeMapper.toRouteDto(route));
         });
         return dto;
     }

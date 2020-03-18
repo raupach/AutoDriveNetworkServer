@@ -52,7 +52,7 @@ public class RouteMapper {
         return routesResponseDtos;
     }
 
-    private RouteDto toRouteDto(Route route) {
+    public RouteDto toRouteDto(Route route) {
         RouteDto dto = new RouteDto();
         dto.setDate(zoneDateTimeMapper.toDateStr(route.getDate()));
         dto.setUpdated(route.getUpdated()!=null?zoneDateTimeMapper.toDateStr(route.getUpdated()):null);
