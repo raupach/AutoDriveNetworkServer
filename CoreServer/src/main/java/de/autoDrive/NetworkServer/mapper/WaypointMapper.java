@@ -29,7 +29,7 @@ public class WaypointMapper {
     }
 
     private void setMarker(List<Waypoint> waypoints, MarkerDto dto, List<Group> groups) {
-        Waypoint waypoint = waypoints.get(dto.getWaypointIndex());
+        Waypoint waypoint = waypoints.get(dto.getWaypointIndex()-1); // AutoDrive starts indexing at 1; we start at 0
         waypoint.setMarkerName(dto.getName());
         waypoint.setGroup(findGroup(groups, dto.getGroup()));
     }
