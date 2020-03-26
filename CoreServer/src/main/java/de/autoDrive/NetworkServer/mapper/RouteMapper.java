@@ -32,6 +32,7 @@ public class RouteMapper {
     public Route toEntity(RoutesRequestDto dto) {
         Route route = new Route();
         route.setDate(zoneDateTimeMapper.toZoneDateTime(dto.getDate()));
+        route.setUploaded(ZonedDateTime.now());
         route.setMap(dto.getMap());
         route.setName(dto.getName());
         route.setUsername(dto.getUsername());
