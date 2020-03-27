@@ -13,7 +13,7 @@
 
     </cache-template>
 
-    <cache alias="waypointCache" uses-template="simple">
+<!--    <cache alias="waypointCache" uses-template="simple">-->
+<!--    </cache>-->
 
-    </cache>
 </config>
