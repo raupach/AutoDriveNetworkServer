@@ -1,7 +1,12 @@
 package de.autoDrive.NetworkServer.rest;
 
-import de.autoDrive.NetworkServer.rest.dto_v1.*;
+import de.autoDrive.NetworkServer.rest.dto_v1.RoutesRequestDto;
+import de.autoDrive.NetworkServer.rest.dto_v1.RoutesResponseDtos;
+import de.autoDrive.NetworkServer.rest.dto_v1.RoutesStoreResponseDto;
+import de.autoDrive.NetworkServer.rest.dto_v1.WaypointsResponseDto;
 import de.autoDrive.NetworkServer.service.RoutesService;
+import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,11 +62,13 @@ public class RoutesRestController {
             method=RequestMethod.POST,
             produces = {NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<RoutesStoreResponseDto> store(@RequestBody RoutesRequestDto dto) throws Exception
+    public ResponseEntity<RoutesStoreResponseDto> store(@RequestBody RoutesRequestDto dto, KeycloakAuthenticationToken authentication) throws Exception
     {
         long start = System.currentTimeMillis();
         LOG.info("--->>>> Incoming store-Rest. {}", LOG.isDebugEnabled() ? dto : "");
-        RoutesStoreResponseDto sendResult = routesService.saveNewRoute(dto);
+        String username = authentication.getAccount().getKeycloakSecurityContext().getToken().getPreferredUsername();
+        String keycloakUserId = authentication.getAccount().getKeycloakSecurityContext().getToken().getSubject();
+        RoutesStoreResponseDto sendResult = routesService.saveNewRoute(dto, keycloakUserId, username);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         responseHeaders.set(X_AUTODRIVE_MEDIA_TYPE, NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);

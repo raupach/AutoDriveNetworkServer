@@ -22,12 +22,15 @@ public class Route extends BaseEntity {
     @OneToMany(mappedBy = "route", fetch= FetchType.LAZY)
     private List<Group> groups = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_ID")
+    private User user;
+
     private String name;
     private String map;
     private Integer revision;
     private ZonedDateTime date;
     private String description;
-    private String username;
     private ZonedDateTime uploaded;
     private ZonedDateTime updated;
 
@@ -87,14 +90,6 @@ public class Route extends BaseEntity {
         this.description = description;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public ZonedDateTime getUploaded() {
         return uploaded;
     }
@@ -109,5 +104,13 @@ public class Route extends BaseEntity {
 
     public void setUpdated(ZonedDateTime updated) {
         this.updated = updated;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

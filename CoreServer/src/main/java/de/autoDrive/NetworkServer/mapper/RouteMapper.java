@@ -28,14 +28,16 @@ public class RouteMapper {
     @Autowired
     private ZoneDateTimeMapper zoneDateTimeMapper;
 
+    @Autowired
+    private UserMapper userMapper;
 
-    public Route toEntity(RoutesRequestDto dto) {
+    public Route toEntity(RoutesRequestDto dto, String keycloakUserId, String username) {
         Route route = new Route();
         route.setDate(zoneDateTimeMapper.toZoneDateTime(dto.getDate()));
         route.setUploaded(ZonedDateTime.now());
         route.setMap(dto.getMap());
         route.setName(dto.getName());
-        route.setUsername(dto.getUsername());
+        route.setUser(userMapper.toEntity(keycloakUserId, username));
         route.setDescription(dto.getDescription());
         route.setRevision(dto.getRevision());
         routeRepository.save(route);
@@ -59,7 +61,7 @@ public class RouteMapper {
         dto.setUpdated(route.getUpdated()!=null?zoneDateTimeMapper.toDateStr(route.getUpdated()):null);
         dto.setUploaded(route.getUploaded()!=null?zoneDateTimeMapper.toDateStr(route.getUploaded()):null);
         dto.setDescription(route.getDescription());
-        dto.setUsername(route.getUsername());
+        dto.setUsername(route.getUser()!=null?route.getUser().getUsername():null);
         dto.setMap(route.getMap());
         dto.setName(route.getName());
         dto.setRevision(route.getRevision());

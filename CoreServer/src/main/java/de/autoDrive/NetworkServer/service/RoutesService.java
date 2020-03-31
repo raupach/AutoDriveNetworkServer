@@ -31,9 +31,9 @@ public class RoutesService {
         return routeMapper.toRoutesResponseDtos(routes);
     }
 
-    public RoutesStoreResponseDto saveNewRoute(RoutesRequestDto dto) {
+    public RoutesStoreResponseDto saveNewRoute(RoutesRequestDto dto, String keycloakUserId, String username) {
         RoutesStoreResponseDto routesStoreResponseDto = new RoutesStoreResponseDto();
-        Route route = routeMapper.toEntity(dto);
+        Route route = routeMapper.toEntity(dto, keycloakUserId, username);
         routesStoreResponseDto.setRouteId(route.getId());
         return routesStoreResponseDto;
     }
