@@ -66,14 +66,28 @@ public class RoutesRestController {
     {
         long start = System.currentTimeMillis();
         LOG.info("--->>>> Incoming store-Rest. {}", LOG.isDebugEnabled() ? dto : "");
-        String username = authentication.getAccount().getKeycloakSecurityContext().getToken().getPreferredUsername();
-        String keycloakUserId = authentication.getAccount().getKeycloakSecurityContext().getToken().getSubject();
-        RoutesStoreResponseDto sendResult = routesService.saveNewRoute(dto, keycloakUserId, username);
+        RoutesStoreResponseDto sendResult = routesService.saveNewRoute(dto, getkeycloakUserId(authentication), getUsername(authentication));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         responseHeaders.set(X_AUTODRIVE_MEDIA_TYPE, NetworkServiceRestType.MEDIATYPE_NETWORKSERVICE_JSON_V1);
         LOG.info("<<<<--- store-Rest ende. {}ms, {}", System.currentTimeMillis()-start, sendResult);
         return new ResponseEntity<RoutesStoreResponseDto>(sendResult, responseHeaders, HttpStatus.CREATED);
+    }
+
+    private String getkeycloakUserId(KeycloakAuthenticationToken authentication) {
+        if (authentication!=null) {
+            return authentication.getAccount().getKeycloakSecurityContext().getToken().getSubject();
+        } else {
+            return "N.N.";
+        }
+    }
+
+    private String getUsername(KeycloakAuthenticationToken authentication) {
+        if (authentication!=null) {
+            return authentication.getAccount().getKeycloakSecurityContext().getToken().getPreferredUsername();
+        } else {
+            return "N.N.";
+        }
     }
 
 }
