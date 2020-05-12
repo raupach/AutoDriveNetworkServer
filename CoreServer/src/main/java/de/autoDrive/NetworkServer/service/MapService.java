@@ -1,10 +1,9 @@
 package de.autoDrive.NetworkServer.service;
 
-import de.autoDrive.NetworkServer.entity.MapInfo;
-import de.autoDrive.NetworkServer.entity.MapTileData;
+import de.autoDrive.NetworkServer.entity.neo4j.MapTileData;
 import de.autoDrive.NetworkServer.helper.ImageHelper;
-import de.autoDrive.NetworkServer.repository.MapInfoRepository;
-import de.autoDrive.NetworkServer.repository.MapTileDataRepository;
+
+import de.autoDrive.NetworkServer.repository.neo4j.MapTileDataRepository;
 import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +31,6 @@ public class MapService {
     @Autowired
     private MapTileDataRepository mapTileDataRepository;
 
-    @Autowired
-    private MapInfoRepository mapInfoRepository;
-
 
     public byte[] getMap(String name, int level, int x, int y) throws IOException {
         Optional<MapTileData> tile = mapTileDataRepository.findFirstByZoomLevelAndXAndYAndName(level, x, y, name);
@@ -47,12 +43,6 @@ public class MapService {
         int w = DIMENSIONS[level];
         int h = DIMENSIONS[level];
 
-        MapInfo mapInfo = mapInfoRepository.findFirstByName(name).orElseGet(() -> {
-            MapInfo mi = new MapInfo();
-            mi.setName(name);
-            mapInfoRepository.save(mi);
-            return mi;
-        });
 
         BufferedImage scaledImage = getScaleImage(name, w);
 
@@ -67,10 +57,8 @@ public class MapService {
                 mapTile.setX(x);
                 mapTile.setY(y);
                 mapTile.setZoomLevel(level);
-                mapTile.setMapInfo(mapInfo);
                 mapTileDataRepository.save(mapTile);
             }
-            mapTileDataRepository.flush();
         }
     }
 
@@ -99,4 +87,5 @@ public class MapService {
             }
         }
     }
+
 }

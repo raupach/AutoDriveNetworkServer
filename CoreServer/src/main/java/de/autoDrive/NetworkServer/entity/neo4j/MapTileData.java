@@ -1,28 +1,28 @@
-package de.autoDrive.NetworkServer.entity;
+package de.autoDrive.NetworkServer.entity.neo4j;
 
-import javax.persistence.*;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 
-@Entity
-@Table(name = "map_tile_data")
-public class MapTileData extends BaseEntity {
+@NodeEntity
+public class MapTileData {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "map_id")
-    private MapInfo mapInfo;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    @Column(name = "zoom_level")
     private Integer zoomLevel;
     private String name;
     private Integer x;
     private Integer y;
     private byte[] data;
 
-    public MapInfo getMapInfo() {
-        return mapInfo;
+    public Long getId() {
+        return id;
     }
 
-    public void setMapInfo(MapInfo mapInfo) {
-        this.mapInfo = mapInfo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getZoomLevel() {
@@ -31,6 +31,14 @@ public class MapTileData extends BaseEntity {
 
     public void setZoomLevel(Integer zoomLevel) {
         this.zoomLevel = zoomLevel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getX() {
@@ -55,13 +63,5 @@ public class MapTileData extends BaseEntity {
 
     public void setData(byte[] data) {
         this.data = data;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
