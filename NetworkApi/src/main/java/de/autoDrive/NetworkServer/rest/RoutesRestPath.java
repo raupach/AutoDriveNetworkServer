@@ -5,5 +5,7 @@ public abstract class RoutesRestPath {
     public static final String DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     public static final String CONTEXT_PATH = "/autodrive";
     public static final String ROUTES = "/routes";
+    public static final String MAPS = "/maps";
     public static final String WAYPOINTS = "/waypoints";
+    public static final String LEVEL = "/level";
 }
