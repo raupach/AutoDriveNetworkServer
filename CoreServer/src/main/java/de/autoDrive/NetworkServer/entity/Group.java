@@ -1,23 +1,21 @@
 package de.autoDrive.NetworkServer.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Cache(region = "groupCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(name = "ad_group")
-public class Group extends BaseEntity {
+@NodeEntity
+public class Group  {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_ID")
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private Route route;
 
-    @Cache(region = "groupWaypointsCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(mappedBy = "group", fetch= FetchType.LAZY)
     private List<Waypoint> waypoints = new ArrayList<>();
 
     private String name;

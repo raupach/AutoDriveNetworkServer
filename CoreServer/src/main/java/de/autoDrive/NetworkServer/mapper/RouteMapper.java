@@ -33,8 +33,8 @@ public class RouteMapper {
 
     public Route toEntity(RoutesRequestDto dto, String keycloakUserId, String username) {
         Route route = new Route();
-        route.setDate(zoneDateTimeMapper.toZoneDateTime(dto.getDate()));
-        route.setUploaded(ZonedDateTime.now());
+//        route.setDate(zoneDateTimeMapper.toZoneDateTime(dto.getDate()));
+//        route.setUploaded(ZonedDateTime.now());
         route.setMap(dto.getMap());
         route.setName(dto.getName());
         route.setUser(userMapper.toEntity(keycloakUserId, username));
@@ -43,7 +43,7 @@ public class RouteMapper {
         routeRepository.save(route);
         route.setGroups(groupMapper.toEntity(route, dto.getGroups()));
         route.setWaypoints(waypointMapper.toEntity(route, dto.getWaypoints(), dto.getMarkers()));
-        route.setUpdated(ZonedDateTime.now());
+//        route.setUpdated(ZonedDateTime.now());
         return route;
     }
 
@@ -57,15 +57,15 @@ public class RouteMapper {
 
     public RouteDto toRouteDto(Route route) {
         RouteDto dto = new RouteDto();
-        dto.setDate(zoneDateTimeMapper.toDateStr(route.getDate()));
-        dto.setUpdated(route.getUpdated()!=null?zoneDateTimeMapper.toDateStr(route.getUpdated()):null);
-        dto.setUploaded(route.getUploaded()!=null?zoneDateTimeMapper.toDateStr(route.getUploaded()):null);
+//        dto.setDate(zoneDateTimeMapper.toDateStr(route.getDate()));
+//        dto.setUpdated(route.getUpdated()!=null?zoneDateTimeMapper.toDateStr(route.getUpdated()):null);
+//        dto.setUploaded(route.getUploaded()!=null?zoneDateTimeMapper.toDateStr(route.getUploaded()):null);
         dto.setDescription(route.getDescription());
         dto.setUsername(route.getUser()!=null?route.getUser().getUsername():null);
         dto.setMap(route.getMap());
         dto.setName(route.getName());
         dto.setRevision(route.getRevision());
-        dto.setId(route.getId());
+        dto.setId(route.getId().toString());
         return dto;
     }
 }

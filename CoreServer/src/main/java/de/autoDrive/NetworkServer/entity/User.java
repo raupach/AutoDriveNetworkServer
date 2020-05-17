@@ -1,23 +1,23 @@
 package de.autoDrive.NetworkServer.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "user")
-@Cacheable
-@Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-public class User extends BaseEntity{
+@NodeEntity
+public class User {
 
-    @Cache(region = "userRoutesCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(mappedBy = "user", fetch= FetchType.LAZY)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Relationship(type = "HAS_ROUTES", direction = Relationship.UNDIRECTED)
     private List<Route> routes = new ArrayList<>();
 
-    @Column(name = "keycloak_user_id")
     private String keycloakUserId;
     private String username;
 

@@ -1,40 +1,31 @@
 package de.autoDrive.NetworkServer.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
-@Entity
-@Cache(region = "waypointCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(name = "waypoint")
-public class Waypoint extends BaseEntity {
+@NodeEntity
+public class Waypoint  {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_ID")
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private Route route;
 
-    @Cache(region = "waypointOutgoingCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="waypoint_to_waypoint",
-            joinColumns=@JoinColumn(name="outgoing_ID", referencedColumnName="ID"),
-            inverseJoinColumns=@JoinColumn(name="incoming_ID", referencedColumnName="ID"))
+    @Relationship(type = "OUTGOING", direction = Relationship.UNDIRECTED)
     private Set<Waypoint> outgoing = new HashSet<>();
 
-    @Cache(region = "waypointIncomingCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-    @ManyToMany(mappedBy = "outgoing", fetch = FetchType.LAZY)
+    @Relationship(type = "INCOMING", direction = Relationship.UNDIRECTED)
     private Set<Waypoint> incoming= new HashSet<>();
 
-    @Cache(region = "waypointGroupCache",usage = CacheConcurrencyStrategy.READ_WRITE)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_ID")
     private Group group;
 
-    @Column(name = "marker_name")
     private String markerName;
 
     private Double x;
